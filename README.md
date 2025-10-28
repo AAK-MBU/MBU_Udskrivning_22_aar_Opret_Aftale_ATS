@@ -1,7 +1,5 @@
 # MBU Udskrivning 22 år – Opret Aftale
 
-**Version:** 1.0.0
-
 ---
 
 ## 🔍 Overview
@@ -25,7 +23,7 @@ It connects to the Solteq Tand database to find eligible citizens and uses GUI a
 
 ---
 
-## ⚙️ How it works
+## 🧠 How it works
 
 1. The robot runs inside ATS and fetches citizens from the Solteq Tand database.
 2. Each citizen is added to the queue as a workitem (with CPR as reference).
