@@ -1,7 +1,7 @@
 [project]
-name = "mbu_udskrivning_22_aar_ats"
+name = "mbu_udskrivning_22_aar_opret_aftale_ats"
 version = "0.0.1"
-description = "Full repo for process for Udskrivning 22 år - commandline parameters determines which flow to run"
+description = "Process for fetching citizens turning 22 today, and creating appointment with Udskrivning 22 aar details"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -15,6 +15,9 @@ dependencies = [
     "sqlalchemy >= 2.0.20",
     "sqlalchemy[asyncio] >= 2.0.20",
     "psutil",
+    "itk_dev_shared_components",
+    "tzdata",
+    "openpyxl",
 ]
 
 [tool.uv.sources]
