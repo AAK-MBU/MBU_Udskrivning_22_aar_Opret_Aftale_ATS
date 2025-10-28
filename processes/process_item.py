@@ -1,4 +1,13 @@
-"""Module to handle item processing"""
+"""
+Handles patient processing logic for the 'Udskrivning 22 år' workflow.
+
+This module is responsible for interacting with Solteq Tand via the
+`mbu_dev_shared_components.solteqtand` library to locate patient records
+and create appropriate booking reminders for patients turning 22 years old.
+
+The processing functions handle potential business exceptions, logging, and
+fallbacks to manual handling if automation cannot complete successfully.
+"""
 
 import logging
 
@@ -18,7 +27,20 @@ logger = logging.getLogger(__name__)
 
 
 def process_item(item_data: dict, item_reference: str):
-    """Docstring"""
+    """
+    Processes a single workitem from the ATS queue.
+
+    This function initializes the Solteq application session and attempts
+    to process the provided patient reference. If any unexpected error
+    occurs, the patient will be flagged for manual follow-up.
+
+    Args:
+        item_data (dict): Raw data payload from the ATS work item.
+        item_reference (str): The reference identifier (typically CPR/SSN) of the patient to be processed.
+    """
+
+    logger.info(f"item_data: {item_data}")
+    logger.info(f"item_reference: {item_reference}")
 
     solteq_app = get_app()
 
@@ -26,22 +48,36 @@ def process_item(item_data: dict, item_reference: str):
 
     # This try-except catches all errors, and adds patient to manual list
     try:
-        handle_patient(item_reference, solteq_app)
+        handle_patient(item_reference=item_reference, solteq_app=solteq_app)
 
     except Exception as e:
         logger.info(f"ramte en fejl: {e}")
 
-    logger.info("after trying handle_patient()")
+    logger.info("After trying handle_patient()")
 
 
 def handle_patient(item_reference: str, solteq_app: SolteqTandApp):
     """
-    Function to process items in Ikke meddelte aftaler.
-    Process changes status of appointments and sends out messages to patient.
-    If any business error, queue element is added to a manual list in an SQL database.
+    Performs all patient-specific automation in Solteq Tand.
+
+    This function:
+      - Opens the patient journal using the given CPR number.
+      - Navigates to the correct tab in Solteq Tand.
+      - Creates a booking reminder for the '22 år - Afventer faglig vurdering' process.
+
+    If any business error or patient-related issue is encountered,
+    the case is raised as a `BusinessError`, so the calling function can
+    handle manual follow-up.
+
+    Args:
+        item_reference (str): The patient's SSN number.
+        solteq_app (SolteqTandApp): Active instance of the Solteq Tand application.
+
+    Raises:
+        BusinessError: If patient data is incomplete, missing, or cannot be processed.
     """
 
-    logger.info("inside handle_patient()")
+    logger.info("Inside handle_patient()")
 
     # Find the patient
     SSN = item_reference
@@ -73,14 +109,15 @@ def handle_patient(item_reference: str, solteq_app: SolteqTandApp):
         if missing_contact_info:
             raise BusinessError("Intet telefonnummer knyttet til patienten.") from e
 
-        else:
-            raise e from e
+        raise e from e
 
     except (NotMatchingError, PatientNotFoundError, Exception) as e:
         logger.error(str(e))
 
         raise BusinessError("Fejl ved åbning af patient") from e
 
+    logger.info("Åbner 'Stamkort'")
     solteq_app.open_tab(tab_name="Stamkort")
 
+    logger.info("Opretter aftale")
     solteq_app.create_booking_reminder(booking_reminder_data=booking_reminder_data)

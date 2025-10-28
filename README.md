@@ -1,21 +1,35 @@
-## How to use this template
+# MBU Udskrivning 22 år – Opret Aftale
 
-The repository has been tagged as a template repository. This means you can create a new repository based on this code using the [GitHub instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
+**Version:** 1.0.0
 
+---
 
-### Alternative method: checkout the repository and remove git bindings
-Replace `<new-folder-name>` with your desired folder name:
-```sh
-git clone https://github.com/odense-rpa/process-template.git <new-folder-name>
+## 🔍 Overview
 
-cd <new-folder-name>
+This project defines a Python-based Automation Server (ATS) process developed for Aarhus Kommune’s MBU automation platform.
+The robot automatically identifies citizens who have just turned 22 years old in Solteq Tand and creates a booking reminder in the system.
 
-rm -rf .git
-git init
-git add .
-git commit -m "Initial commit from process-template"
+It connects to the Solteq Tand database to find eligible citizens and uses GUI automation to open each patient’s record in the Solteq Tand application and create a booking with the correct aftaletype and aftalestatus.
 
-git remote add origin <new-repo-url>
-git push -u origin main
-```
+---
 
+## ⚙️ Main Responsibilities
+- Identify citizens who turned 22 years old today
+- Add them as workitems in the relevant ATS workqueue
+- Open Solteq Tand via GUI automation
+- Create a booking reminder with:
+    - Aftaletype: Z - 22 år - Borger fyldt 22 år
+    - Aftalestatus: 22 år - Afventer faglig vurdering
+- Log in and out of Solteq Tand automatically
+- Handle and report process or business errors
+
+---
+
+## ⚙️ How it works
+
+1. The robot runs inside ATS and fetches citizens from the Solteq Tand database.
+2. Each citizen is added to the queue as a workitem (with CPR as reference).
+3. The robot opens Solteq Tand, searches for the patient, and creates the reminder booking.
+4. Once all items are processed, the application is closed automatically.
+
+---
