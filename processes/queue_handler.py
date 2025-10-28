@@ -4,17 +4,25 @@ import asyncio
 import json
 import logging
 
+from datetime import date
+from dateutil.relativedelta import relativedelta
+
 from automation_server_client import Workqueue
 
 from helpers import config
+
+from helpers import borger_fyldt_22
 
 logger = logging.getLogger(__name__)
 
 
 def retrieve_items_for_queue() -> list[dict]:
     """Function to populate queue"""
-    data = []
-    references = []
+
+    prefix = (date.today() - relativedelta(years=22)).strftime("%d%m%y")
+    # prefix = "1110109996"  # REMOVE AND UNCOMMENT LINE ABOVE
+
+    data, references = borger_fyldt_22.retrieve_citizens(prefix=prefix)
 
     items = [
         {"reference": ref, "data": d} for ref, d in zip(references, data, strict=True)
