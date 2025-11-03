@@ -80,7 +80,7 @@ def handle_patient(item_reference: str, solteq_app: SolteqTandApp):
     logger.info("Inside handle_patient()")
 
     # Find the patient
-    SSN = item_reference
+    ssn = item_reference
 
     booking_reminder_data = {
         "comboBoxBookingType": "Z - 22 år - Borger fyldt 22 år",
@@ -96,7 +96,7 @@ def handle_patient(item_reference: str, solteq_app: SolteqTandApp):
 
     logger.info("Indtaster CPR og laver opslag")
     try:
-        solteq_app.open_patient(ssn=SSN)
+        solteq_app.open_patient(ssn=ssn)
 
         logger.info("Patientjournalen blev åbnet")
 
