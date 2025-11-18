@@ -4,8 +4,7 @@ import os
 
 from mbu_dev_shared_components.solteqtand.database.db_handler import SolteqTandDatabase
 
-SOLTEQ_TAND_DB_CONN_STRING = os.getenv("DBCONNECTIONSTRINGSOLTEQTAND")
-print(f"conn string: {SOLTEQ_TAND_DB_CONN_STRING}")
+SOLTEQ_TAND_DB_CONN_STRING = os.getenv("SOLTEQTANDDBCONNECTIONSTRING")
 
 
 def retrieve_citizens(prefix: str):
