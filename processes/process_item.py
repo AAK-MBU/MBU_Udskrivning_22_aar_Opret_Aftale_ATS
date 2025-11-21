@@ -53,6 +53,8 @@ def process_item(item_data: dict, item_reference: str):
     except Exception as e:
         logger.info(f"ramte en fejl: {e}")
 
+        raise
+
     logger.info("After trying handle_patient()")
 
 
