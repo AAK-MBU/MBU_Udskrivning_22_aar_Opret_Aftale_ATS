@@ -56,7 +56,6 @@ def get_citizen_turning_22_today(db_handler: SolteqTandDatabase, prefix):
             firstName, lastName;
     """
 
-    # prefix = "201103"
     like_param = f"{prefix}%"
 
     # pylint: disable=protected-access

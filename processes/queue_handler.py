@@ -20,7 +20,6 @@ def retrieve_items_for_queue() -> list[dict]:
     """Function to populate queue"""
 
     prefix = (date.today() - relativedelta(years=22)).strftime("%d%m%y")
-    # prefix = "1110109996"  # REMOVE AND UNCOMMENT LINE ABOVE
 
     data, references = borger_fyldt_22.retrieve_citizens(prefix=prefix)
 
