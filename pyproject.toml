@@ -1,12 +1,12 @@
 [project]
 name = "mbu_udskrivning_22_aar_opret_aftale_ats"
-version = "1.0.1"
+version = "2.0.0"
 description = "Process for fetching citizens turning 22 today, and creating appointment with Udskrivning 22 aar details"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "automation-server-client @ git+https://github.com/odense-rpa/automation-server-client.git",
-    "mbu-dev-shared-components[solteqtand]>=4.2.1",
+    "mbu-dev-shared-components[solteqtand]>=4.2.5",
     "mbu_msoffice_integration>=1.0.1",
     "mbu-rpa-core",
     "pillow",
