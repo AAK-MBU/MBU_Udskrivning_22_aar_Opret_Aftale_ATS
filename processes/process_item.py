@@ -13,9 +13,8 @@ import logging
 
 from datetime import datetime
 
-
-from mbu_dev_shared_components.solteqtand.application import SolteqTandApp
-from mbu_dev_shared_components.solteqtand.application.exceptions import (
+from mbu_solteqtand_shared_components.application import SolteqTandApp
+from mbu_solteqtand_shared_components.application.exceptions import (
     NotMatchingError,
     PatientNotFoundError,
 )
@@ -122,4 +121,4 @@ def handle_patient(item_reference: str, solteq_app: SolteqTandApp):
     solteq_app.open_tab(tab_name="Stamkort")
 
     logger.info("Opretter aftale")
-    solteq_app.create_booking_reminder(booking_reminder_data=booking_reminder_data)
+    solteq_app.create_booking_reminder(booking_reminder_data=booking_reminder_data, booking_clinic="Tandplejen Aarhus")

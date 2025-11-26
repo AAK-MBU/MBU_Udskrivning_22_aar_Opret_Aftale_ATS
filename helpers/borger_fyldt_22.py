@@ -2,7 +2,7 @@
 
 import os
 
-from mbu_dev_shared_components.solteqtand.database.db_handler import SolteqTandDatabase
+from mbu_solteqtand_shared_components.database.db_handler import SolteqTandDatabase
 
 SOLTEQ_TAND_DB_CONN_STRING = os.getenv("SOLTEQTANDDBCONNECTIONSTRING")
 
@@ -56,7 +56,6 @@ def get_citizen_turning_22_today(db_handler: SolteqTandDatabase, prefix):
             firstName, lastName;
     """
 
-    prefix = "201103"
     like_param = f"{prefix}%"
 
     # pylint: disable=protected-access
