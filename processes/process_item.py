@@ -13,9 +13,8 @@ import logging
 
 from datetime import datetime
 
-
-from mbu_dev_shared_components.solteqtand.application import SolteqTandApp
-from mbu_dev_shared_components.solteqtand.application.exceptions import (
+from mbu_solteqtand_shared_components.application import SolteqTandApp
+from mbu_solteqtand_shared_components.application.exceptions import (
     NotMatchingError,
     PatientNotFoundError,
 )
