@@ -121,6 +121,4 @@ def handle_patient(item_reference: str, solteq_app: SolteqTandApp):
     solteq_app.open_tab(tab_name="Stamkort")
 
     logger.info("Opretter aftale")
-    # solteq_app.create_booking_reminder(booking_reminder_data=booking_reminder_data)
-
-    solteq_app.create_booking_reminder_test(booking_reminder_data=booking_reminder_data, booking_clinic="Tandplejen Aarhus")
+    solteq_app.create_booking_reminder(booking_reminder_data=booking_reminder_data, booking_clinic="Tandplejen Aarhus")
