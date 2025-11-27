@@ -5,7 +5,7 @@ import subprocess as sp
 from subprocess import CalledProcessError
 
 from mbu_dev_shared_components.database.connection import RPAConnection
-from mbu_dev_shared_components.solteqtand.application import SolteqTandApp
+from mbu_solteqtand_shared_components.application import SolteqTandApp
 
 from helpers import config
 
