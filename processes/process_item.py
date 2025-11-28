@@ -122,3 +122,6 @@ def handle_patient(item_reference: str, solteq_app: SolteqTandApp):
 
     logger.info("Opretter aftale")
     solteq_app.create_booking_reminder(booking_reminder_data=booking_reminder_data, booking_clinic="Tandplejen Aarhus")
+
+    logger.info("Lukker patient vindue")
+    solteq_app.close_patient_window()
