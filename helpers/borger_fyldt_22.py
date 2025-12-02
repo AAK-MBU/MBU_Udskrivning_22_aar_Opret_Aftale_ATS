@@ -49,9 +49,6 @@ def get_citizen_turning_22_today(db_handler: SolteqTandDatabase, prefix):
             [tmtdata_prod].[dbo].[ACTIVE_PATIENTS]
         WHERE
             cpr LIKE ?
-            OR cpr in (
-                '2811030000'
-            )
         ORDER BY
             firstName, lastName;
     """
