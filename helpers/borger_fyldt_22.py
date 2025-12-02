@@ -50,9 +50,6 @@ def get_citizen_turning_22_today(db_handler: SolteqTandDatabase, prefix):
         WHERE
             cpr LIKE ?
             OR cpr in (
-                '2011030000',
-                '2111030000',
-                '2711030000',
                 '2811030000'
             )
         ORDER BY
