@@ -10,7 +10,6 @@ SOLTEQ_TAND_DB_CONN_STRING = os.getenv("SOLTEQTANDDBCONNECTIONSTRING")
 def retrieve_citizens(prefix: str):
     """Main function to execute the script."""
 
-    citizens_turned_22 = []
     data = []
     references = []
 
@@ -23,16 +22,14 @@ def retrieve_citizens(prefix: str):
         citizen_cpr = citizen_solteq["cpr"]
         citizen_full_name = f"{citizen_solteq['firstName']} {citizen_solteq['lastName']}"
 
-        # Add to result list
-        citizens_turned_22.append({
+        citizen_data = {
             "patientId": patient_id,
             "cpr": citizen_cpr,
             "fullName": citizen_full_name,
-        })
+        }
 
-    for citizen in citizens_turned_22:
         references.append(citizen_cpr)
-        data.append(citizen)
+        data.append(citizen_data)
 
     return data, references
 
