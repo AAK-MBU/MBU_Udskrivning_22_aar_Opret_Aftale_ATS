@@ -4,6 +4,8 @@ import asyncio
 import json
 import logging
 
+import argparse
+
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
@@ -15,11 +17,20 @@ from helpers import borger_fyldt_22
 
 logger = logging.getLogger(__name__)
 
+### Small snippet that allows manual prefix testing ###
+parser = argparse.ArgumentParser(add_help=False)
+parser.add_argument("--manual_test", type=str, help="Override prefix")
+parsed_args, _ = parser.parse_known_args()
+
 
 def retrieve_items_for_queue() -> list[dict]:
     """Function to populate queue"""
 
-    prefix = (date.today() - relativedelta(years=22)).strftime("%d%m%y")
+    if parsed_args.manual_test:
+        prefix = parsed_args.manual_test.strip()
+
+    else:
+        prefix = (date.today() - relativedelta(years=22)).strftime("%d%m%y")
 
     data, references = borger_fyldt_22.retrieve_citizens(prefix=prefix)
 
