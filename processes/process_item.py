@@ -90,7 +90,7 @@ def handle_patient(item_reference: str, solteq_app: SolteqTandApp):
         "dateTimePickerStartTime": "07:45",
         "textBoxDuration": "5",
         "comboBoxStatus": "22 år - Afventer faglig vurdering",
-        "textBoxBookingText": "Patient skal udskrives i forbindelse med 22 års fødselsdag",
+        "textBoxBookingText": "Borger fyldt 22 år",
         "futureDate": datetime.now().strftime("%d-%m-%Y"),
         "futureDateTime": datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3],
     }
