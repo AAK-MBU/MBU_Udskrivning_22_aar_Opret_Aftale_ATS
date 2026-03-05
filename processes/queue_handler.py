@@ -4,6 +4,8 @@ import asyncio
 import json
 import logging
 
+import calendar
+
 import argparse
 
 from datetime import date
@@ -32,10 +34,25 @@ def retrieve_items_for_queue() -> list[dict]:
     else:
         prefix = (date.today() - relativedelta(years=22)).strftime("%d%m%y")
 
-    data, references = borger_fyldt_22.retrieve_citizens(prefix=prefix)
+    prefixes = [prefix]
+
+    # Handle Feb 29 birthdays in non-leap years
+    if prefix.startswith("0103") and not calendar.isleap(date.today().year):
+        leap_prefix = "2902" + prefix[-2:]
+        prefixes.append(leap_prefix)
+
+    data = []
+    references = []
+
+    for p in prefixes:
+        d, r = borger_fyldt_22.retrieve_citizens(prefix=p)
+
+        data.extend(d)
+        references.extend(r)
 
     items = [
-        {"reference": ref, "data": d} for ref, d in zip(references, data, strict=True)
+        {"reference": ref, "data": d}
+        for ref, d in zip(references, data, strict=True)
     ]
 
     return items
